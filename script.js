@@ -2,6 +2,7 @@ let num1 = "";
 let num2 = "";
 let displayValue = "";
 let operator = "";
+let prevOperator = "";
 let result = "";
 const numberBtn = document.querySelectorAll('.number');
 const operatorBtn = document.querySelectorAll('.special');
@@ -43,22 +44,25 @@ operatorBtn.forEach((button) =>{
     if(topText.textContent === ""){
         num1 = displayValue;
         displayValue = "";
-        pendingOperation = button.textContent;
+        pendingOperator = button.textContent;
         topText.textContent = `${num1} ${button.textContent}`;
     }
     else{
         num2 = displayValue;
-        if(num2 != 0){
+        console.log(`num2 : ${num2}`);
+        console.log(button.textContent);
+        console.log(pendingOperator);
+        if(num2 != ""){
             displayValue = "";
             bottomText.textContent = "";
-            result = operate(+num1, +num2, pendingOperation);
+            result = operate(+num1, +num2, pendingOperator);
             topText.textContent = `${result.toString()} ${button.textContent}`
             num1 = result;
-            if((button.textContent != "=")){
+            if((button.textContent !== "=")){
                 num1 = result;
                 num2 = displayValue;
-                pendingOperation = button.textContent;
-                topText.textContent = `${result.toString()} ${button.textContent}`
+                pendingOperator = button.textContent;
+
             }
             }
         }
