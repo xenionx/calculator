@@ -21,6 +21,13 @@ clearBtn.addEventListener('click', ()=>{
     bottomText.textContent = "";
 })
 
+deleteBtn.addEventListener('click', () => {
+    console.log(displayValue);
+    displayValue = displayValue.slice(0, -1);
+    console.log(displayValue);
+    bottomText.textContent = displayValue;
+})
+
 
 numberBtn.forEach((button) =>{
     button.addEventListener('click', () => {
@@ -41,16 +48,19 @@ operatorBtn.forEach((button) =>{
     }
     else{
         num2 = displayValue;
-        displayValue = "";
-        bottomText.textContent = "";
-        result = operate(+num1, +num2, pendingOperation);
-        topText.textContent = `${result.toString()} ${button.textContent}`
-        num1 = result;
-        if(button.textContent !== "="){
+        if(num2 != 0){
+            displayValue = "";
+            bottomText.textContent = "";
+            result = operate(+num1, +num2, pendingOperation);
+            topText.textContent = `${result.toString()} ${button.textContent}`
             num1 = result;
-            num2 = displayValue;
-            pendingOperation = button.textContent;
-        }
+            if((button.textContent != "=")){
+                num1 = result;
+                num2 = displayValue;
+                pendingOperation = button.textContent;
+                topText.textContent = `${result.toString()} ${button.textContent}`
+            }
+            }
         }
     })
 })
